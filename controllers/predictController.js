@@ -1,5 +1,8 @@
 // controllers/predictController.js
 const { getModelInfo, predict } = require("../services/tfModelService");
+const dbService = require('../services/dbService');
+
+
 
 function health(req, res) {
   res.json({
@@ -61,12 +64,22 @@ async function doPredict(req, res) {
     }
 
     const prediction = await predict(features);
+    let id_registro = null;
+    try {
+        // Guardamos todo el body (features + meta) y el resultado
+        const logGuardado = await dbService.guardarPrediccion(req.body, prediction);
+        id_registro = logGuardado._id;
+        console.log(`[DB] Predicción guardada con ID: ${id_registro}`);
+    } catch (dbErr) {
+        console.error("[DB] Error al guardar, pero la predicción fue exitosa:", dbErr);
+        // No fallamos la petición si falla la BD, pero lo registramos en consola
+    }
     const latencyMs = Date.now() - start;
     const timestamp = new Date().toISOString();
 
     // De momento sin MongoDB → predictionId null
     res.status(201).json({
-      predictionId: null,
+      predictionId: id_registro,
       prediction,
       timestamp,
       latencyMs
