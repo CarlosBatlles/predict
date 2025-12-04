@@ -45,3 +45,4 @@ async function fetchKunna(timeStart, timeEnd) {
 
   return result; // { columns, values }
 }
+module.exports = { fetchKunna };

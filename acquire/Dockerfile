@@ -1,5 +1,5 @@
 # Usar imagen oficial de Node (ligera)
-FROM node:18-alpine
+FROM node:22-slim
 
 # Directorio de trabajo dentro del contenedor
 WORKDIR /usr/src/app

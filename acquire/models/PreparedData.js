@@ -20,4 +20,4 @@ const PreparedDataSchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('PreparedData', PreparedDataSchema);
+module.exports = mongoose.model('PreparedData', PreparedDataSchema, 'prepared_samples');

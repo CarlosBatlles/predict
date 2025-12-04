@@ -27,9 +27,8 @@ services:
     restart: unless-stopped
     depends_on:
       - mongo
-    environment:
-      # Definimos la URI directamente aquí para asegurar la conexión
-      - MONGO_URI=mongodb://mongo:27017/sd-practica
+    env_file:
+      - .env.docker
     ports:
       - "3001:3001"
 

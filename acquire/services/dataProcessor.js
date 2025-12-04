@@ -5,7 +5,7 @@ async function acquireAndProcessData() {
     // 1. Definir rango de tiempo (ej. últimas 24 horas para asegurar que tenemos 3 datos)
     const timeEnd = new Date();
     const timeStart = new Date();
-    timeStart.setHours(timeEnd.getHours() - 24);
+    timeStart.setDate(timeEnd.getDate() - 5);
 
     // 2. Obtener datos crudos de Kunna
     const rawData = await fetchKunna(timeStart, timeEnd);
